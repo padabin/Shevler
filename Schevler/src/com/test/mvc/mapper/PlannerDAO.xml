@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mvc.IPlannerDAO">
+
+
+	<select id="list" resultType="com.test.mvc.PlannerDTO">
+		SELECT RNUM, PLANNER_CODE, PLANNER_REF_CODE, MEMBER_CODE, PLANNER_TITLE, TO_CHAR(PLANNER_START_DATE,'YYYY-MM-DD') AS PLANNER_START_DATE, TO_CHAR(PLANNER_END_DATE,'YYYY-MM-DD') AS PLANNER_END_DATE, TRAVEL_TYPE_CODE, PLANNER_BUDGET, PLANNER_MIN, PLANNER_MAX, TRANSPORTATION_CODE, MATCHING_AVAILABILITY_CODE, PLANNER_DATE, PLANNER_UPDATE_DATE
+		FROM
+		(
+		    SELECT ROWNUM RNUM, DATA.* 
+		    FROM 
+		    ( 
+		        SELECT PLANNER_CODE, PLANNER_REF_CODE, MEMBER_CODE, PLANNER_TITLE, PLANNER_START_DATE, PLANNER_END_DATE, TRAVEL_TYPE_CODE, PLANNER_BUDGET, PLANNER_MIN, PLANNER_MAX, TRANSPORTATION_CODE, MATCHING_AVAILABILITY_CODE, PLANNER_DATE, PLANNER_UPDATE_DATE
+		        FROM PLANNER
+		        WHERE MEMBER_CODE = #{memberCode}
+		        ORDER BY SUBSTR(PLANNER_CODE, 3) DESC
+		    ) DATA
+		)
+		WHERE RNUM &gt;= #{start} AND RNUM &lt;= #{end}
+	</select>
+	
+	<select id="dataCount" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM PLANNER
+		WHERE MEMBER_CODE = #{memberCode}
+	</select>
+	
+	
+	<select id="searchByCode" resultType="com.test.mvc.PlannerDTO">
+		SELECT planner_title, to_char(planner_start_date, 'yyyy-mm-dd') as planner_start_date
+		, to_char(planner_end_date, 'yyyy-mm-dd') as planner_end_date, planner_budget
+		, PLANNER_MIN, PLANNER_MAX, TRANSPORTATION_CODE, MATCHING_AVAILABILITY_CODE, TRAVEL_TYPE_CODE
+		FROM planner
+		where planner_code = #{planner_code}
+		
+	</select>
+	
+	
+	<insert id="add" useGeneratedKeys="true" keyProperty="planner_code">
+
+
+	
+		<selectKey keyProperty="planner_seq" resultType="int" order="BEFORE">  
+        	select planner_seq.nextval FROM dual
+     	</selectKey>
+	
+	
+		INSERT INTO PLANNER(PLANNER_CODE, MEMBER_CODE, PLANNER_TITLE, PLANNER_START_DATE, PLANNER_END_DATE, TRAVEL_TYPE_CODE , PLANNER_BUDGET, PLANNER_MIN, PLANNER_MAX, TRANSPORTATION_CODE, MATCHING_AVAILABILITY_CODE, PLANNER_DATE, PLANNER_UPDATE_DATE)
+		VALUES('PL' || #{planner_seq} , #{member_code}, #{planner_title}, TO_DATE(#{planner_start_date} , 'YYYY-MM-DD'  ) 
+		, TO_DATE(#{planner_end_date} ,  'YYYY-MM-DD'), #{travel_type_code} , #{planner_budget}, #{planner_min}, #{planner_max} , #{transportation_code}, #{matching_availability_code}, SYSDATE, SYSDATE)
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	<update id="modify">
+		UPDATE PLANNER
+		SET PLANNER_TITLE = #{planner_title}
+		, PLANNER_START_DATE = TO_DATE(#{planner_start_date} , 'YYYY-MM-DD'  )
+		, PLANNER_END_DATE = TO_DATE(#{planner_end_date} , 'YYYY-MM-DD'  )
+		, PLANNER_BUDGET = ${planner_budget}
+		, PLANNER_MIN = ${planner_min}
+		, PLANNER_MAX = ${planner_max}
+		, TRANSPORTATION_CODE = #{transportation_code}
+		, TRAVEL_TYPE_CODE = #{travel_type_code}
+		, matching_availability_code = #{matching_availability_code}
+		WHERE PLANNER_CODE = #{planner_code}
+	</update>
+	
+	<delete id="remove">
+		DELETE
+		FROM PLANNER
+		WHERE PLANNER_CODE = #{planner_code}
+	</delete>
+
+</mapper>

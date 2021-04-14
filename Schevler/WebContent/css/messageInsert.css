@@ -1,0 +1,33 @@
+@charset "utf-8";
+/* CSS Document */
+
+#header {
+  height: 40px;
+  line-height: 40px;
+}
+
+.msgList {
+  display: flex;
+  flex-flow: column;
+}
+
+.list_top {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 20px 230px;
+  width: 50%;
+  height: 30px;
+  line-height: 30px;
+  background-color: #4f79d0;
+  border: 1px solid black;
+}
+
+.table {
+  margin-left: 230px;
+  border: 1px solid black;
+  width: 50%;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.5);
+}

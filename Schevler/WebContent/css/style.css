@@ -1,0 +1,44 @@
+
+
+body {
+  margin: 0;
+}
+
+.login-form {
+  width: 300px;
+  background-color: #eeeff1;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 20px;
+  border: none;
+  margin-top: 130px;
+}
+
+.text-field {
+  font-size: 14px;
+  padding: 10px;
+  border: none;
+  width: 260px;
+  margin-bottom: 10px;
+}
+
+.submit-btn {
+  font-size: 14px;
+  border: none;
+  padding: 10px;
+  width: 260px;
+  background-color: #4f79d0;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.links {
+  text-align: center;
+}
+
+.links a {
+  font-size: 13px;
+  color: #6c6c6c;
+}
+
+

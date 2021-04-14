@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "RIDIBatang";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "RIDIBatang";
+  list-style: none;
+}
+
+.head_bar
+{
+	height: 30px;
+	background-color: #4f79d0;
+	line-height: 30px;
+}
+
+.head_bar > span
+{
+	font-size: 20px;
+	color: white;
+	padding-left: 20px;
+}
+
+.report_body
+{
+	font-size: 18px;
+	padding-left: 20px;
+	padding-top: 20px;
+}
+
+.report_body select
+{
+	height: 30px;
+}
+
+.report_body span
+{
+	font-weight: bold;
+}
+
+.report_bottom
+{
+	padding-left: 200px;
+	padding-top: 20px;
+}
+

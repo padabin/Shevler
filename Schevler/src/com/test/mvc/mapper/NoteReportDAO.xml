@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mvc.INoteReportDAO">
+
+
+	<select id="lists" resultType="com.test.mvc.NoteReportDTO">
+		SELECT NOTE_REP_IN_CONTENT, M2.MEMBER_ID AS SENDER_ID, NRO.NOTE_REP_OUT_PROCESS, NRI.NOTE_REP_IN_CODE, RT.REP_TYPE_CODE AS REP_TYPE_CODE, REP_TYPE_DETAIL, N.NOTE_CODE, SUBSTR(N.NOTE_CONTENT,0,15) as NOTE_CONTENT,  M.MEMBER_CODE as REPORTER_CODE , M.MEMBER_ID AS REPORTER_ID, NRO.NOTE_REP_OUT_CODE , NOTE_REP_IN_DATE, NOTE_REP_OUT_DATE
+		FROM NOTE_REP_IN NRI LEFT JOIN REP_TYPE RT
+		ON NRI.REP_TYPE_CODE = RT.REP_TYPE_CODE
+		LEFT JOIN MEMBER M
+		ON NRI.MEMBER_CODE = M. MEMBER_CODE
+		LEFT JOIN NOTE N 
+		ON NRI.NOTE_CODE = N.NOTE_CODE
+        LEFT JOIN NOTE_REP_OUT NRO
+        ON NRI.NOTE_REP_IN_CODE = NRO.NOTE_REP_IN_CODE
+        LEFT JOIN MEMBER M2
+        ON N.NOTE_SENDER_CODE = M2.MEMBER_CODE
+	</select>
+
+	<insert id="reportProcess">
+		INSERT INTO NOTE_REP_OUT(NOTE_REP_OUT_CODE, NOTE_REP_IN_CODE, MEMBER_CODE, NOTE_REP_OUT_DATE, NOTE_REP_OUT_PROCESS)
+		VALUES('NO' || NOTE_REP_OUT_SEQ.nextval, #{note_rep_in_code}, #{memberCode}, SYSDATE, ${note_rep_out_process})
+	</insert>
+
+	<select id="totalReportedById" resultType="java.lang.Integer">
+		SELECT  count(*)
+		FROM NOTE_REP_IN NRI LEFT JOIN REP_TYPE RT
+		ON NRI.REP_TYPE_CODE = RT.REP_TYPE_CODE
+		LEFT JOIN MEMBER M
+		ON NRI.MEMBER_CODE = M. MEMBER_CODE
+		LEFT JOIN NOTE N 
+		ON NRI.NOTE_CODE = N.NOTE_CODE
+        left JOIN NOTE_REP_OUT NRO
+        ON NRI.NOTE_REP_IN_CODE = NRO.NOTE_REP_IN_CODE
+        LEFT JOIN MEMBER M2
+        ON N.NOTE_SENDER_CODE = M2.MEMBER_CODE
+        WHERE NOTE_REP_OUT_PROCESS = 0 AND M2.MEMBER_ID = #{id};
+	</select>
+	
+	
+	<select id="doubleCheck" resultType="java.lang.Integer">
+		select count(*) 
+		from note_rep_in
+		where note_code=#{note_code} and member_code=#{member_code}
+	</select>
+	
+	<insert id="reportAction">
+		insert into note_rep_in(note_rep_in_code, note_code , member_code, rep_type_code, note_rep_in_content, note_rep_in_date)
+		values('NR' || NOTE_REP_IN_SEQ.nextval, #{note_code} , #{member_code}, #{rep_type_code}, #{note_rep_in_content} ,SYSDATE)
+	</insert>
+	
+
+</mapper>

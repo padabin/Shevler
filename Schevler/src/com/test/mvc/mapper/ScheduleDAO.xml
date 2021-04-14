@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mvc.IScheduleDAO">
+
+	<insert id="add">
+		INSERT INTO SCHEDULE(SCHEDULE_IMG_SRC, SCHEDULE_VALUE, SCHEDULE_IS_FIRST, SCHEDULE_CODE, PLANNER_CODE, SCHEDULE_PLACE, SCHEDULE_X, SCHEDULE_Y, SCHEDULE_START_TIME, SCHEDULE_END_TIME, SCHEDULE_CONTENT, SCHEDULE_DAY)
+		VALUES(#{schedule_img_src},${schedule_value}, ${schedule_is_first} ,'SC' || SCHEDULE_SEQ.NEXTVAL, #{planner_code}, #{schedule_place} , #{schedule_x}, #{schedule_y}, #{schedule_start_time}, #{schedule_end_time}, #{schedule_content}, #{schedule_day})
+	</insert>
+	
+	
+	<select id="searchByPlannerCode" resultType="com.test.mvc.ScheduleDTO">
+		SELECT * 
+		FROM SCHEDULE
+		WHERE PLANNER_CODE = #{planner_code}
+		ORDER BY SCHEDULE_VALUE
+		
+		
+	</select>
+	
+	<select id="searchByPlannerCode2" resultType="com.test.mvc.ScheduleDTO">
+		SELECT PLANNER_TITLE,TO_CHAR(PLANNER_START_DATE,'yyyy-mm-dd') AS PLANNER_START_DATE
+			,TO_CHAR(PLANNER_END_DATE,'yyyy-mm-dd') AS PLANNER_END_DATE
+		FROM PLANNER
+		WHERE PLANNER_CODE = #{planner_code}	
+	</select>
+	
+	
+	<select id="getMaxDay" resultType="int">
+		SELECT NVL(MAX(SCHEDULE_DAY), 1) 
+		FROM SCHEDULE
+		WHERE PLANNER_CODE = #{planner_code}
+		ORDER BY SCHEDULE_DAY, SCHEDULE_START_TIME
+	</select>
+	
+	<select id="getDataCount" resultType="int">
+		SELECT count(*)
+		FROM SCHEDULE
+		WHERE PLANNER_CODE = #{planner_code}
+		
+	</select>
+	
+	<delete id="remove">
+		DELETE
+		FROM SCHEDULE
+		WHERE PLANNER_CODE = #{planner_code}
+	
+	</delete>
+	
+	
+</mapper>

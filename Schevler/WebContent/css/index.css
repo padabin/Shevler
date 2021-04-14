@@ -1,0 +1,86 @@
+@charset "utf-8";
+/* CSS Document */
+#wrap {
+  width: 100%;
+  background: url("../images/main-bg.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+#index-banner {
+  margin-top: 10px;
+  z-index: 0;
+  height: 1100px;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.middle-content {
+  position: relative;
+  margin-left: 150px;
+  top: 200px;
+  width: 550px;
+  height: 300px;
+  color: white;
+}
+
+.middle-content-title {
+  font-size: 100px;
+  font-weight: bold;
+  letter-spacing: 5px;
+  margin-bottom: 30px;
+}
+.middle-content {
+  letter-spacing: 10px;
+}
+
+.middle-content .middle_btn {
+  text-align: center;
+  letter-spacing: 0px;
+  line-height: 90px;
+  width: 90px;
+  height: 90px;
+  position: relative;
+  bottom: 70px;
+  right: 20px;
+  float: right;
+  background-color: #4f79d0;
+  border-radius: 10px;
+}
+
+.middle_btn span {
+  animation: bounce 0.8s ease infinite alternate;
+  position: relative;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+  top: 5px;
+  color: #fff;
+}
+.middle_btn span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.middle_btn span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.middle_btn span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+@keyframes bounce {
+  100% {
+    top: -10px;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc;
+  }
+}
+
+.middle_btn:hover {
+  background-color: white;
+  transition: background-color 1s;
+}
+.middle_btn:hover span {
+  color: #4f79d0;
+}

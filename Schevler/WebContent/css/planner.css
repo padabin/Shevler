@@ -1,0 +1,577 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+#planner_content {
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+  height: 2000px;
+  border: 1px solid black;
+  margin-bottom: 20px;
+}
+
+.sheveler_leftsidebar {
+  width: 20%;
+  border: 1px solid black;
+  box-sizing: border-box;
+  height: 90%;
+  position: absolute;
+  z-index: 10;
+  background-color: #f2f2f2;
+  display: block;
+}
+
+.planner_hidebar {
+  width: 20px;
+  height: 50px;
+  line-height: 50px;
+  background-color: #cccccc;
+  border-radius: 0px 10px 10px 0px;
+  position: absolute;
+  left: 20%;
+  color: white;
+}
+
+.planner_hidebar:hover {
+  background-color: black;
+}
+
+.write_schedule {
+  background-color: white;
+  margin: 0px 5px;
+  padding-bottom: 2px;
+}
+
+.write_schedule h4 {
+  margin: 5px;
+}
+
+.write_schedule span {
+  font-size: 20px;
+  padding: 5px;
+}
+
+.write_schedule span:hover {
+  background-color: #cccccc;
+  cursor: pointer;
+}
+
+.once_time {
+  position: fixed;
+  left: 800px;
+  z-index: 300;
+}
+
+.once_time ul {
+  margin: 0px;
+  padding: 0px;
+  width: 500px;
+  height: 350px;
+  font-size: 20px;
+}
+.once_time li {
+  height: calc(100%/7);
+  background-color : white;
+  cursor: pointer;
+  line-height: 50px;
+}
+
+.once_time li:hover {
+  border: 2px solid black;
+}
+
+.mask {
+  position: fixed;
+  background-color: #cccccc;
+  opacity: 0.8;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: none;
+}
+
+.write_schedule b {
+  color: red;
+}
+
+.schedule_calendar {
+  border: 1px solid #d2d2d2;
+  margin: 5px;
+}
+
+.write_schedule_detail {
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.write_schedule_detail {
+  overflow-y: scroll;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  height: 700px;
+}
+.transit_time {
+  margin: 0 auto;
+  width: 50%;
+}
+.transit_time .xi-time-o {
+  top: 1px;
+  position: relative;
+}
+
+.schedule_choice_area {
+  margin: 5px;
+  text-align: center;
+  border: 1px solid black;
+  overflow: hidden;
+  padding: 5px;
+}
+
+.choice_area_image {
+  padding-bottom: 10px;
+  height: 90px;
+  float: left;
+  width: 30%;
+}
+
+.choice_area_image img {
+  width: 90px;
+  height: 90px;
+}
+.coice_area_time {
+  float: left;
+  width: 70%;
+}
+
+.coice_area_time a {
+  color: black;
+  cursor: pointer;
+}
+
+.coice_area_time a:hover {
+  color: #337ab7;
+}
+
+.coice_area_time .memo {
+  position: fixed;
+  width: 400px;
+  height: 300px;
+  background-color: white;
+  z-index: 99;
+  border: 1px solid black;
+  left: 150px;
+  display: none;
+}
+
+.memo i {
+  float: right;
+  padding: 7px;
+  cursor: pointer;
+}
+
+.detailmemo {
+  width: 350px;
+  height: 100px;
+  resize: none;
+}
+
+.coice_area_time table th {
+  text-align: center;
+}
+
+.sheveler_maps {
+  width: 100%;
+  float: left;
+  top: 0;
+  box-sizing: border-box;
+  z-index: -5;
+  background-color: #e1e1e1;
+  height: 100%;
+}
+
+.sheveler_area {
+    width: 15%;
+    height: 90%;
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    box-shadow: -1px 0px grey;
+}
+
+.search_select{
+	height:50px;
+	width:100%;
+	border-top:1px solid black;
+	border:none;
+}
+
+.search_select:first-child{
+	border-bottom: 1px solid black;
+}
+
+.schedule_choice_area .xi-close-min {
+  color: red;
+  float: right;
+  position: relative;
+  bottom: 20px;
+}
+.schedule_choice_area .xi-close-min:hover {
+  background-color: #cccccc;
+  border-radius: 5px;
+}
+
+.schedule_choice_area span {
+  font-size: 11px;
+  color: #ff4081;
+}
+.search_bar input[type="text"] {
+  text-align: center;
+  float: left;
+  width: 80%;
+  height: 50px;
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-left: none;
+}
+
+.search_bar input[type="text"]:focus{
+	outline:none;
+}
+
+
+
+.search_bar {
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid;
+}
+
+.search_bar .xi-search {
+  width: 20%;
+  height: 50px;
+  line-height: 50px;
+  float: left;
+  color: white;
+  background-color: black;
+  box-sizing: border-box;
+}
+
+.area_card {
+  margin: 5px;
+  height: 90px;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);  
+}
+
+.area_card:hover{
+	transition: box-shadow .5s;
+	box-shadow: 0 2px 2px 0 rgb(0 0 0 / 70%), 0 -2px 1px -2px rgb(0 0 0 / 7%), 0 1px 5px 0 rgb(0 0 0 / 100%);
+}
+
+.area_card .area_card_img {
+  width: 30%;
+  float: left;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.area_card .area_card_img img {
+  width: 100%;
+  height: 100%;
+}
+
+.area_card .area_card_desc {
+  float: left;
+  width: 70%;
+  height: 70%;
+  box-sizing: border-box;
+  padding-left: 15px;
+  text-align: left;
+  overflow: hidden;
+  font-size: 12px;
+}
+.add_details {
+  width: 70%;
+  height: 30%;
+  float: left;
+  box-sizing: border-box;
+}
+
+.add_details .xi-plus {
+  float: left;
+  width: 50%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.add_details .xi-plus:hover {
+  background-color: #dfdfdf;
+  transition-property: background-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in;
+}
+
+.xi-plus:before {
+  position: relative;
+  top: 5px;
+}
+
+.add_details .xi-zoom-in {
+  float: left;
+  width: 50%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.add_details .xi-zoom-in:hover {
+  background-color: #dfdfdf;
+  transition-property: background-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in;
+}
+
+.xi-zoom-in:before {
+  position: relative;
+  top: 5px;
+}
+
+/*====================== Planner_first.html ======================*/
+#planner_first_content {
+  padding-top: 50px;
+  text-align: center;
+  font-weight: bold;
+  margin: 0 auto;
+  width: 80%;
+  height: 1200px;
+  margin-bottom: 20px;
+  font-size: 15pt;
+}
+
+.planner_title {
+  padding-bottom: 50px;
+}
+
+.planner_first_desc {
+  width: 100%;
+  height: 400px;
+}
+
+.planner_first_desc p {
+  margin: 0px 30px;
+}
+
+.planner_first_desc h1 {
+  font-weight: bold;
+  padding-bottom: 40px;
+}
+.planner_first_desc h4 {
+  font-weight: bold;
+  color: #4f79d0;
+}
+
+.planner_first_desc ul li {
+  float: left;
+  width: 33.33%;
+}
+
+.planner_table {
+  width: 50%;
+  margin: 0 auto;
+  font-size: 16px;
+}
+
+.planner_table input[type="text"] {
+  height: 40px;
+}
+
+.planner_table td {
+  border-top: none !important;
+  vertical-align: middle !important;
+  width: 33%;
+  text-align: left;
+  line-height: 40px;
+}
+
+.planner_table td {
+  padding-top: 20px !important;
+}
+
+.planner_table .btntd {
+  text-align: center;
+}
+
+.planner_table select {
+  height: 25px;
+}
+
+.match_info {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.match_infolayer {
+  margin-left: 122px;
+  padding: 20px;
+  border: 4px solid #ddd;
+  position: absolute;
+  background: #fff;
+}
+
+.match_infolayer_list {
+  font-weight: bold;
+  color: #4f79d0;
+  font-size: 20px;
+}
+
+.match_infolayer button {
+  float: right;
+}
+
+.match_infolayer span {
+  color: black;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.selectminmax {
+  width: 50px;
+  height: 30px;
+}
+
+.minmax {
+  width: 50px;
+  height: 30px;
+}
+
+.nextbtn {
+  background-color: #337ab7;
+  color: white;
+  width: 300px;
+  height: 50px;
+  border: none;
+}
+
+.resetbtn {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  width: 300px;
+  height: 50px;
+}
+
+/*====================== Planner_first.html END ======================*/
+
+/*================== Planner_Info_Detail.html ==================*/
+#planner_info_detail {
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 1100px;
+	overflow:hidden;
+	height:auto;
+  border: 5px solid black;
+  padding: 70px 50px;
+  
+}
+
+.info_detail_title {
+  font-size: 25px;
+}
+
+.info_detail_content {
+  width: 100%;
+}
+
+.info_detail_content ul {
+ 
+  list-style: none;
+  padding: 0;
+}
+
+.info_detail_content ul li {
+  width: 30%;
+  float: left;
+  box-sizing: border-box;
+  height: 300px;
+  padding: 0px 20px;
+}
+
+.info_detail_content ul li:first-child {
+  width: 40%;
+}
+
+.info_detail_content ul li:last-child {
+  border-top: 1px solid black;
+  width: 100%;
+  height: 300px;
+}
+
+.info_detail_content_img {
+  text-align: center;
+  padding: 20px 20px !important;
+}
+
+.info_detail_content_img img {
+  width: 400px;
+  height: 250px;
+}
+
+.info_detail_content p {
+  font-size: 13px;
+}
+
+.info_detail_content a {
+  color: #4f79d0 !important;
+  font-weight: bold;
+}
+
+.common_info {
+  padding: 50px 20px !important;
+}
+
+.content_type_title {
+  color: #4f79d0;
+  font-size: 20px !important;
+  font-weight: bold;
+}
+
+.detail_road_find{
+    width: 1000px;
+    height: 1000px;
+    top: -90px;
+    left: 130%;
+    position: absolute;
+    display: none;
+    background-color: white;
+    overflow: auto;
+    z-index: 200;
+}
+
+.create_planner{
+	color: white;
+	position: absolute;
+    right: -90px;
+    background-color:#4f79d0;
+    width:70px;
+    height:70px;
+    border-radius: 50%;
+    vertical-align: middle;
+    line-height: 70px;
+    cursor: pointer;
+}
+
+.create_planner:hover{
+    width:75px;
+    height:75px;
+    line-height: 75px;
+    vertical-align: middle;
+}
+
+/*==============================================================*/
