@@ -1,0 +1,39 @@
+name: Build OFCS_IMS with Ant
+
+# 언제 이 작업이 실행될지 정의 (main 브랜치에 push되거나 PR이 왔을 때)
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 리눅스 환경에서 실행
+
+    steps:
+    # 1. 소스 코드 가져오기
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. JDK 1.8 설정 (Temurin 배포판 사용)
+    - name: Set up JDK 8
+      uses: actions/setup-java@v4
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+
+    # 3. Ant 빌드 실행
+    # 기본 타겟인 deployWar를 실행합니다.
+    # 인코딩 문제를 방지하기 위해 UTF-8 옵션을 추가했습니다.
+    - name: Build with Ant
+      run: ant -noinput -buildfile build.xml deployWar -Dfile.encoding=UTF-8
+
+    # 4. 빌드 결과물(WAR 파일) 업로드
+    # build.xml에 정의된 경로: ant/webPackage/OFCS_IMS.war
+    - name: Upload WAR Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: OFCS_IMS-WAR
+        path: ant/webPackage/OFCS_IMS.war
+        retention-days: 5 # 5일간 보관 (옵션)
