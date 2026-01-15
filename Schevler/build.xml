@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+
+                                                 
+     ====================================================================== -->
+<project name="ktOfcsImsWeb" default="deployWar">
+    <description>
+            KT OFCS_IMS WEB
+    </description>
+
+	<!-- property define -->
+	<property name="projectBase" value="${basedir}" />
+	<property name="buildBase" value="${basedir}/ant/build" />
+	<property name="buildPath" value="${buildBase}/target" />
+	<property name="dist" value="${basedir}/ant/web-dist" />
+	<property name="package" value="${basedir}/ant/webPackage" />
+	<property name="jar-package" value="${basedir}/ant/web-jar" />
+	<property name="jarName" value="OFCS_IMS.jar" />
+	<property name="warName" value="OFCS_IMS.war" />
+	<property name="distributeConfig" value="distribute-config" />
+	
+	<!-- classpath define -->
+	<path id="compile.classpath">
+		<fileset dir="${projectBase}/WebContent/WEB-INF/lib">
+            <include name="**/*.jar" />
+        </fileset>
+		<fileset dir="${projectBase}/WebContent/WEB-INF/tomcat_lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+	<!-- - - - - - - - - - - - - - - - - - 
+	          target: init
+	          초기화 작업                      
+	- - - - - - - - - - - - - - - - - -->
+	<target name="init" description="초기화">
+		<!-- class folder -->
+		<delete dir="${buildPath}/classes" />
+		<mkdir dir="${buildPath}/classes" />
+		<!-- 배포 파일 복사 폴더.-->
+		<!--
+		<delete dir="${dist}" />
+		-->
+		<mkdir dir="${dist}" />
+		<!-- war파일 복사 폴더. -->
+		<!--
+		<delete dir="${package}" />
+		-->
+		<mkdir dir="${jar-package}" />
+		<mkdir dir="${package}" />
+	</target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+		target: compile
+		컴파일.                      
+	- - - - - - - - - - - - - - - - - -->
+	<target name="compile" depends="init" description="컴파일">
+		<!-- compile main -->
+		<javac destdir="${buildPath}/classes" encoding="UTF-8" debug="true" fork="yes">
+			<classpath>
+				<path refid="compile.classpath" />
+			</classpath>
+			<src path="${projectBase}/src" />
+		</javac>
+		
+	</target>
+    
+	<!--=======================================
+    	jar 파일 생성.
+    =======================================-->
+	<target name="create_jar" depends="compile">
+		<jar destfile="${jar-package}/${jarName}">
+			<manifest>
+			</manifest>
+	        <fileset dir="${buildPath}/classes"/>
+		</jar>
+	</target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+		target: fileCopy
+	        배포 파일 준비.                      
+	- - - - - - - - - - - - - - - - - -->
+	<target name="fileCopy" depends="create_jar" description="배포준비 파일 복사">
+		<copy todir="${dist}" overwrite="true">
+			<fileset dir="${projectBase}/WebContent">
+				<include name="*.jsp"/>
+				<include name="*.swf"/>
+				<include name="conf/**"/>
+				<include name="images/**"/>
+				<include name="jsp/**"/>
+				<include name="resources/**"/>
+				<include name="WEB-INF/*.*"/>
+			</fileset>
+		</copy>
+		
+		<mkdir dir="${dist}/WEB-INF/classes" />
+		<copy todir="${dist}/WEB-INF/classes" overwrite="true">
+			<fileset dir="${buildPath}/classes">
+				<include name="**"/>
+			</fileset>
+		</copy>		
+		
+		<!-- 
+		<mkdir dir="${dist}/WEB-INF/lib" />
+		<copy todir="${dist}/WEB-INF/lib" overwrite="true">
+			<fileset dir="${jar-package}">
+				<include name="${jarName}"/>
+			</fileset>
+		</copy> -->
+		
+		<copy todir="${dist}/WEB-INF/lib" overwrite="true">
+			<fileset dir="${projectBase}/WebContent/WEB-INF/lib">
+			    <include name="*.jar"/>
+			</fileset>
+		</copy>
+		
+		<!-- 배포 필요 없는 파일 배포 후 삭제. -->
+		<!-- <delete>
+			<fileset dir="${dist}">
+				<include name="WEB-INF/classes/context/testApplicationContext.xml"/>
+				<include name="resources/jQuery/jquery-1.8.3.js"/>
+				<include name="resources/jQuery/jquery-migrate-1.2.1.js"/>
+				<include name="resources/jQuery/jquery.tablesorter.js"/>
+				<include name="resources/easyui/plugins/**"/>
+				<include name="resources/easyui/src/**"/>
+			</fileset>
+		</delete>
+		<delete dir="${dist}/resources/html"/>
+		<delete dir="${dist}/resources/data"/>
+		
+		서버 환경 파일(테스트 관련)
+		<copy todir="${dist}/WEB-INF/classes" overwrite="true">
+			<fileset dir="${projectBase}/${distributeConfig}">
+				<include name="**/**"/>
+			</fileset>
+		</copy>-->
+	</target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+		target: makeWar
+		war파일 제작.                      
+	- - - - - - - - - - - - - - - - - -->
+	<target name="makeWar" depends="fileCopy" description="war를 만들기">
+		<war destfile="${package}/${warName}">
+			<fileset dir="${dist}" />	
+		</war>
+	</target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+		target: deployWar
+		war 배포.                      
+	- - - - - - - - - - - - - - - - - -->
+	<target name="deployWar" depends="makeWar" description="war 배포">
+					        
+	</target>
+</project>
